@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.DayOfWeek;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -28,7 +29,7 @@ public class UserController {
     @PostMapping("/customer")
     public CustomerDTO saveCustomer(@RequestBody CustomerDTO customerDTO){
         Customer customer = CustomerDTO.convertCustomerDTOToCustomer(customerDTO);
-        customer.setId(null);
+        customer.setId(null); // otherwise it will be 0
         Customer customerPersisted = customerService.save(customer);
 
         return CustomerDTO.convertCustomerToCustomerDTO(customerPersisted);
@@ -36,7 +37,14 @@ public class UserController {
 
     @GetMapping("/customer")
     public List<CustomerDTO> getAllCustomers(){
-        throw new UnsupportedOperationException();
+        List<Customer> customers = customerService.getAllCustomers();
+        List<CustomerDTO> customerDTOList = new ArrayList<>();
+
+        for (Customer customer : customers){
+            customerDTOList.add(CustomerDTO.convertCustomerToCustomerDTO(customer));
+        }
+
+        return customerDTOList;
     }
 
     @GetMapping("/customer/pet/{petId}")

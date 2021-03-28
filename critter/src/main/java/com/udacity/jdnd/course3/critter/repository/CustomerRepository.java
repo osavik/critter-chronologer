@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 @Repository
 @Transactional
@@ -32,5 +33,9 @@ public class CustomerRepository {
     public void delete(Long id){
         Customer customerToDelete = entityManager.find(Customer.class, id);
         entityManager.remove(customerToDelete);
+    }
+
+    public List<Customer> findAll(){
+        return entityManager.createQuery("from Customer").getResultList();
     }
 }
