@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.hibernate.annotations.Nationalized;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -38,4 +39,15 @@ public class Customer {
         this.notes = notes;
         this.pets = pets;
     }
+
+    public void addPetToCustomer(Pet pet){
+
+        if (pets == null){
+            pets = new ArrayList<>();
+        }
+
+        pets.add(pet);
+    }
+
+
 }

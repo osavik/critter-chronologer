@@ -1,8 +1,13 @@
 package com.udacity.jdnd.course3.critter.data.pet;
 
+import com.udacity.jdnd.course3.critter.data.Customer;
+import com.udacity.jdnd.course3.critter.data.Pet;
+import com.udacity.jdnd.course3.critter.service.CustomerService;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
 
@@ -28,5 +33,14 @@ public class PetDTO {
         this.ownerId = ownerId;
         this.birthDate = birthDate;
         this.notes = notes;
+    }
+
+    public static PetDTO convertPetToPetDTO(Pet pet){
+        PetDTO petDTO = new PetDTO();
+        BeanUtils.copyProperties(pet, petDTO);
+
+        petDTO.ownerId = pet.getCustomer().getId();
+
+        return petDTO;
     }
 }
