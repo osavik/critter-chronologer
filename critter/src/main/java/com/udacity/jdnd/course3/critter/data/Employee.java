@@ -23,16 +23,14 @@ public class Employee {
     @Nationalized
     private String name;
 
-    @ElementCollection(targetClass=EmployeeSkill.class)
-    @Enumerated(EnumType.STRING) // default is to ORDINAL.
-    @CollectionTable(name="employee")
-    @Column(name="skills") // Column name in employee
+    @ElementCollection(targetClass = EmployeeSkill.class)
+    @CollectionTable(name = "employee_skills", joinColumns = @JoinColumn(name = "id"))
+    @Enumerated(value = EnumType.STRING)
     private Set<EmployeeSkill> skills;
 
     @ElementCollection(targetClass=DayOfWeek.class)
-    @Enumerated(EnumType.STRING) // default is to ORDINAL.
-    @CollectionTable(name="employee")
-    @Column(name="daysAvailable") // Column name in employee
+    @CollectionTable(name = "days_available", joinColumns = @JoinColumn(name = "id"))
+    @Enumerated(value = EnumType.STRING)
     private Set<DayOfWeek> daysAvailable;
 
     public Employee(Long id, String name, Set<EmployeeSkill> skills, Set<DayOfWeek> daysAvailable) {

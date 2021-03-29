@@ -41,7 +41,8 @@ public class CustomerRepository {
     }
 
     public Customer findCustomerByPet(Pet pet){
-        return entityManager.createQuery("SELECT c FROM Customer c WHERE :pet member of c.pets", Customer.class)
+        return entityManager
+                .createQuery("SELECT c FROM Customer c WHERE :pet member of c.pets", Customer.class)
                 .setParameter("pet", pet)
                 .getSingleResult();
     }

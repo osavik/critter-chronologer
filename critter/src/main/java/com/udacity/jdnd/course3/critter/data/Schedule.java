@@ -29,10 +29,14 @@ public class Schedule {
 
     private LocalDate date;
 
+    //@ElementCollection(targetClass = EmployeeSkill.class)
+    //@Enumerated(EnumType.STRING) // default is to ORDINAL.
+    //@CollectionTable(name="schedule")
+    //@Column(name="activities") // Column name in schedule
+
     @ElementCollection(targetClass = EmployeeSkill.class)
-    @Enumerated(EnumType.STRING) // default is to ORDINAL.
-    @CollectionTable(name="schedule")
-    @Column(name="activities") // Column name in schedule
+    @CollectionTable(name = "schedule_activities", joinColumns = @JoinColumn(name = "id"))
+    @Enumerated(value = EnumType.STRING)
     private Set<EmployeeSkill> activities;
 
 

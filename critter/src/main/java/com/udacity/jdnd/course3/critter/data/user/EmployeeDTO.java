@@ -1,8 +1,11 @@
 package com.udacity.jdnd.course3.critter.data.user;
 
+import com.udacity.jdnd.course3.critter.data.Customer;
+import com.udacity.jdnd.course3.critter.data.Employee;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.beans.BeanUtils;
 
 import java.time.DayOfWeek;
 import java.util.Set;
@@ -25,5 +28,20 @@ public class EmployeeDTO {
         this.name = name;
         this.skills = skills;
         this.daysAvailable = daysAvailable;
+    }
+
+
+    public static Employee convertEmployeeDTOToEmployee(EmployeeDTO employeeDTO){
+        Employee employee = new Employee();
+        BeanUtils.copyProperties(employeeDTO, employee);
+
+        return employee;
+    }
+
+    public static EmployeeDTO convertEmployeeToEmployeeDTO(Employee employee){
+        EmployeeDTO employeeDTO = new EmployeeDTO();
+        BeanUtils.copyProperties(employee, employeeDTO);
+
+        return employeeDTO;
     }
 }
