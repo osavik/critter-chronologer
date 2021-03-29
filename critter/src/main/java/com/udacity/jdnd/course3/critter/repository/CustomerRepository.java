@@ -1,6 +1,7 @@
 package com.udacity.jdnd.course3.critter.repository;
 
 import com.udacity.jdnd.course3.critter.data.Customer;
+import com.udacity.jdnd.course3.critter.data.Pet;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,4 +39,11 @@ public class CustomerRepository {
     public List<Customer> findAll(){
         return entityManager.createQuery("from Customer").getResultList();
     }
+
+    public Customer findCustomerByPet(Pet pet){
+        return entityManager.createQuery("SELECT c FROM Customer c WHERE :pet member of c.pets", Customer.class)
+                .setParameter("pet", pet)
+                .getSingleResult();
+    }
+
 }
