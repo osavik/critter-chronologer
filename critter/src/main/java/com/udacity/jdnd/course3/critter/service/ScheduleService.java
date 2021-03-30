@@ -34,10 +34,4 @@ public class ScheduleService {
     public List<Schedule> findAllSchedulesForEmployee(Employee employee) {
         return scheduleRepository.findAllSchedulesForEmployee(employee);
     }
-
-    public List<Schedule> findAllSchedulesForCustomer(Customer customer) {
-        return null; // scheduleRepository.findAllSchedulesForCustomer(customer);
-    }
-
-
 }
