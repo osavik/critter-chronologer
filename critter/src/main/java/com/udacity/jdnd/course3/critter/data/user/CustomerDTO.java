@@ -53,8 +53,6 @@ public class CustomerDTO {
         Customer customer = new Customer();
         BeanUtils.copyProperties(customerDTO, customer);
 
-        // todo maybe retrieve pets by petIds ???
-
         return customer;
     }
 }
