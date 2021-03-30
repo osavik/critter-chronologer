@@ -17,7 +17,7 @@ import java.time.LocalDate;
 public class Pet {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     // converted using JPA 2.1 @Converter & PetConverter.java

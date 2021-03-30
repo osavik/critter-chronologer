@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -30,19 +31,7 @@ public class EmployeeService {
         employeeRepository.changeAvailability(employeeId, daysAvailable);
     }
 
-    public List<Employee> getEmployeesForService(EmployeeRequestDTO employeeRequestDTO){
-        // 1. firstly ,find all employees for this day
-        List<Employee> employeesForDay =  employeeRepository.findEmployeesForDay(employeeRequestDTO.getDate());
-
-        // 2. threshold employees by skills
-        List<Employee> employeesForService = new ArrayList<>();
-        for(Employee employee : employeesForDay){
-            if(employee.getSkills().containsAll(employeeRequestDTO.getSkills())){
-                employeesForService.add(employee);
-            }
-        }
-
-        return employeesForService;
+    public List<Employee> getEmployeesForDay(LocalDate date){
+        return employeeRepository.findEmployeesForDay(date);
     }
-
 }

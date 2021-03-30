@@ -88,10 +88,20 @@ public class UserController {
 
     @GetMapping("/employee/availability")
     public List<EmployeeDTO> findEmployeesForService(@RequestBody EmployeeRequestDTO employeeRequestDTO) {
-        List <Employee> employees = employeeService.getEmployeesForService(employeeRequestDTO);
+        // 1. firstly ,find all employees for this day
+        List<Employee> employeesForDay =  employeeService.getEmployeesForDay(employeeRequestDTO.getDate());
 
+        // 2. threshold employees by skills
+        List<Employee> employeesForService = new ArrayList<>();
+        for(Employee employee : employeesForDay){
+            if(employee.getSkills().containsAll(employeeRequestDTO.getSkills())){
+                employeesForService.add(employee);
+            }
+        }
+
+        // transform employees to employeesDTO
         List<EmployeeDTO> employeeDTOS = new ArrayList<>();
-        for (Employee employee : employees){
+        for (Employee employee : employeesForService){
             employeeDTOS.add(EmployeeDTO.convertEmployeeToEmployeeDTO(employee));
         }
 
